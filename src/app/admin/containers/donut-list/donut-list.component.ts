@@ -4,8 +4,17 @@ import { Donut } from '../../models/donut.model';
 @Component({
   selector: 'donut-list',
   template: ` 
-    <div *ngFor="let donut of donuts">
-      <donut-card [donut]="donut"></donut-card>
+    <div>
+      <ng-container *ngIf="donuts.length; else nothing">
+          <donut-card 
+            *ngFor="let donut of donuts" 
+            [donut]="donut">
+          </donut-card>
+      </ng-container>
+
+      <ng-template #nothing>
+        <p>No Donuts Here...</p>
+      </ng-template>
     </div>
   `,
   styles: []
@@ -22,6 +31,7 @@ export class DonutListComponent {
         name: 'Just Chocolate', 
         icon: 'just-chocolate',
         price: 119,
+        promo: true,
         description: 'For the pure chocoholic'
       },
       {
