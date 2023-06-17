@@ -56,4 +56,19 @@ export class DonutService {
 
     return donut ?? {name: '', icon: '', price: 0, description: ''};
   }
+
+  public create(payload: Donut): void {
+    this.donutList = [...this.donuts, payload];
+    console.log(this.donuts);
+  }
+
+  public update(payload: Donut): void {
+    this.donutList = this.donuts.map((donut) => {
+      return donut.id === payload.id ? payload : donut;
+    });
+  }
+
+  public delete(payload: Donut): void {
+    this.donutList = this.donuts.filter((donut) => donut.id !== payload.id);
+  }
 }
