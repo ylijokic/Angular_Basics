@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: ` <div class="app">
-                <header class="header">
-                  <img src="/assets/img/logo.svg" alt="Ultimate Donuts" class="logo"/>
-                </header>
-                <donut-single></donut-single>
-              </div> `,
+  template: `
+    <div class="app">
+      <header class="header">
+        <img src="/assets/img/logo.svg" alt="Ultimate Donuts" class="logo" />
+      </header>
+      <donut-single></donut-single>
+    </div>
+  `,
   styles: [
     `
       .app {

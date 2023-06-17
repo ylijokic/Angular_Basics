@@ -4,13 +4,14 @@ import { DonutService } from '../../services/donut.service';
 
 @Component({
   selector: 'donut-list',
-  template: ` 
+  template: `
     <div>
       <ng-container *ngIf="donuts.length; else nothing">
-          <donut-card 
-            *ngFor="let donut of donuts; trackBy: trackById" 
-            [donut]="donut">
-          </donut-card>
+        <donut-card
+          *ngFor="let donut of donuts; trackBy: trackById"
+          [donut]="donut"
+        >
+        </donut-card>
       </ng-container>
 
       <ng-template #nothing>
@@ -18,7 +19,7 @@ import { DonutService } from '../../services/donut.service';
       </ng-template>
     </div>
   `,
-  styles: []
+  styles: [],
 })
 export class DonutListComponent {
   donuts!: Donut[];

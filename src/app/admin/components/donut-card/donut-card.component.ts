@@ -4,21 +4,21 @@ import { Donut } from '../../models/donut.model';
 @Component({
   selector: 'donut-card',
   template: `
-    <div 
-        class="donut-card"
-        [ngClass]="{ 
-          'donut-card-promo': donut.promo
-        }"
+    <div
+      class="donut-card"
+      [ngClass]="{
+        'donut-card-promo': donut.promo
+      }"
     >
       <img
-        src="/assets/img/{{donut.icon}}.svg"
-        [alt]="donut.name" 
+        src="/assets/img/{{ donut.icon }}.svg"
+        [alt]="donut.name"
         class="donut-card-icon"
       />
       <div>
         <p class="donut-card-name">
           {{ donut.name }}
-          <ng-container [ngSwitch]="donut.promo"]>
+          <ng-container [ngSwitch]="donut.promo" ]>
             <span class="donut-card-label">
               <ng-template [ngSwitchCase]="'new'">NEW</ng-template>
               <ng-template [ngSwitchCase]="'limited'">LIMITED</ng-template>
@@ -64,17 +64,15 @@ import { Donut } from '../../models/donut.model';
           width: 50px;
           margin-right: 10px;
         }
-        &-promo { 
+        &-promo {
           border: 2px solid #c14583;
         }
       }
-    `
-  ]
+    `,
+  ],
 })
 export class DonutCardComponent {
   @Input() donut!: Donut;
 
-  constructor() {
-    
-  }
+  constructor() {}
 }

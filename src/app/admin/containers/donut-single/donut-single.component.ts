@@ -6,15 +6,16 @@ import { DonutService } from '../../services/donut.service';
   selector: 'donut-single',
   template: `
     <div>
-      <donut-form [donut]="donut" 
-                  (create)="onCreate($event)" 
-                  (update)="onUpdate($event)" 
-                  (delete)="onDelete($event)">
+      <donut-form
+        [donut]="donut"
+        (create)="onCreate($event)"
+        (update)="onUpdate($event)"
+        (delete)="onDelete($event)"
+      >
       </donut-form>
     </div>
   `,
-  styles: [
-  ]
+  styles: [],
 })
 export class DonutSingleComponent implements OnInit {
   donut!: Donut;
@@ -22,7 +23,7 @@ export class DonutSingleComponent implements OnInit {
   constructor(private donutService: DonutService) {}
 
   ngOnInit(): void {
-    this.donut = this.donutService.getSingleDonut('xxxx')
+    this.donut = this.donutService.getSingleDonut('xxxx');
   }
 
   public onCreate(donut: Donut): void {
