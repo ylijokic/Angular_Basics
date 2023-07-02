@@ -27,7 +27,8 @@
       "id": "edwok",
       "name": "Sour Supreme",
       "icon": "sour-supreme",
-      "price": 139,
+      "price": 149,
+      "promo": "new",
       "description": "For the sour advocate."
     },
     {
@@ -36,6 +37,14 @@
       "icon": "zesty-lemon",
       "price": 129,
       "description": "Delicious, loucious, lemon"
+    },
+    {
+      "name": "New Donut",
+      "icon": "glazed-fudge",
+      "price": 10,
+      "promo": "limited",
+      "description": "Very Expensive Donut!",
+      "id": "9ROLjCB"
     }
   ]
 }

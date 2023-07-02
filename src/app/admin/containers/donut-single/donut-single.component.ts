@@ -24,16 +24,20 @@ export class DonutSingleComponent implements OnInit {
 
   ngOnInit(): void {
     this.donutService
-      .getSingleDonut('kjhnd')
+      .getSingleDonut('edwok')
       .subscribe((donut: Donut) => (this.donut = donut));
   }
 
   public onCreate(donut: Donut): void {
-    this.donutService.create(donut);
+    this.donutService
+      .create(donut)
+      .subscribe(() => console.log('Created Successfully!'));
   }
 
   public onUpdate(donut: Donut): void {
-    this.donutService.update(donut);
+    this.donutService
+      .update(donut)
+      .subscribe(() => console.log('Updated Successfully!'));
   }
 
   public onDelete(donut: Donut): void {

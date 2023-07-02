@@ -32,15 +32,20 @@ export class DonutService {
     );
   }
 
-  public create(payload: Donut): void {
-    this.donuts = [...this.donuts, payload];
-    console.log(this.donuts);
+  public create(payload: Donut) {
+    return this.http
+      .post<Donut>(`/api/donuts`, payload)
+      .pipe(tap((donut) => (this.donuts = [...this.donuts, donut])));
   }
 
-  public update(payload: Donut): void {
-    this.donuts = this.donuts.map((donut) => {
-      return donut.id === payload.id ? payload : donut;
-    });
+  public update(payload: Donut) {
+    return this.http.put<Donut>(`/api/donuts/${payload.id}`, payload).pipe(
+      tap((donut) => {
+        this.donuts = this.donuts.map((item: Donut) => {
+          return item.id === donut.id ? donut : item;
+        });
+      })
+    );
   }
 
   public delete(payload: Donut): void {
