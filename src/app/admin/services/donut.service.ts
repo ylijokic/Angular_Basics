@@ -46,7 +46,7 @@ export class DonutService {
     );
   }
 
-  public getSingleDonut(id: string): Observable<Donut> {
+  public getSingleDonut(id: string | null): Observable<Donut> {
     return this.getAllDonuts().pipe(
       map((donuts) => {
         const donut = donuts.find((donut: Donut) => donut.id === id);
