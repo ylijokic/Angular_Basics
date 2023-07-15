@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Donut } from '../../models/donut.model';
 import { DonutService } from '../../services/donut.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'donut-single',
   template: `
     <div>
       <donut-form
+        [isEdit]="isEdit"
         [donut]="donut"
         (create)="onCreate($event)"
         (update)="onUpdate($event)"
@@ -20,14 +21,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DonutSingleComponent implements OnInit {
   donut!: Donut;
+  isEdit!: boolean;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private donutService: DonutService
   ) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
+    this.isEdit = this.route.snapshot.data['isEdit'];
     this.donutService
       .getSingleDonut(id)
       .subscribe((donut: Donut) => (this.donut = donut));
@@ -36,12 +40,14 @@ export class DonutSingleComponent implements OnInit {
   public onCreate(donut: Donut): void {
     this.donutService
       .create(donut)
-      .subscribe(() => console.log('Created Successfully!'));
+      .subscribe((donut) =>
+        this.router.navigate(['admin', 'donuts', donut.id])
+      );
   }
 
   public onUpdate(donut: Donut): void {
     this.donutService.update(donut).subscribe({
-      next: () => console.log('Updated Successfully!'),
+      next: () => this.router.navigate(['admin']),
       error: () => console.log('onUpdate Error!'),
     });
   }
@@ -49,6 +55,6 @@ export class DonutSingleComponent implements OnInit {
   public onDelete(donut: Donut): void {
     this.donutService
       .delete(donut)
-      .subscribe(() => console.log('Deleted Successfully!'));
+      .subscribe(() => this.router.navigate(['admin']));
   }
 }
