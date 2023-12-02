@@ -24,6 +24,8 @@ export class DonutService {
 
   constructor(private http: HttpClient) {}
 
+  private URL = `https://donuts-data.vercel.app`;
+
   public getAllDonuts(): Observable<Donut[]> {
     if (this.donuts.length) {
       return of(this.donuts);
@@ -37,7 +39,7 @@ export class DonutService {
       headers,
     };
 
-    return this.http.get<Donut[]>(`/api/donuts`, options).pipe(
+    return this.http.get<Donut[]>(`${this.URL}/donuts`, options).pipe(
       tap((donuts) => (this.donuts = donuts)),
       retryWhen((errors) => errors.pipe(delay(5000), take(2))),
       catchError(this.handleError)
@@ -55,25 +57,27 @@ export class DonutService {
   }
 
   public create(payload: Donut): Observable<Donut> {
-    return this.http.post<Donut>(`/api/donuts`, payload).pipe(
+    return this.http.post<Donut>(`${this.URL}/donuts`, payload).pipe(
       tap((donut) => (this.donuts = [...this.donuts, donut])),
       catchError(this.handleError)
     );
   }
 
   public update(payload: Donut): Observable<Donut> {
-    return this.http.put<Donut>(`/api/donuts/${payload.id}`, payload).pipe(
-      tap((donut) => {
-        this.donuts = this.donuts.map((item: Donut) => {
-          return item.id === donut.id ? donut : item;
-        });
-      }),
-      catchError(this.handleError)
-    );
+    return this.http
+      .put<Donut>(`${this.URL}/donuts/${payload.id}`, payload)
+      .pipe(
+        tap((donut) => {
+          this.donuts = this.donuts.map((item: Donut) => {
+            return item.id === donut.id ? donut : item;
+          });
+        }),
+        catchError(this.handleError)
+      );
   }
 
   public delete(payload: Donut): Observable<Donut> {
-    return this.http.delete<Donut>(`/api/donuts/${payload.id}`).pipe(
+    return this.http.delete<Donut>(`${this.URL}/donuts/${payload.id}`).pipe(
       tap(() => {
         this.donuts = this.donuts.filter((donut) => donut.id !== payload.id);
       }),

@@ -23,12 +23,11 @@ import { NgClass, NgSwitch, NgSwitchCase, CurrencyPipe } from '@angular/common';
       <div>
         <p class="donut-card-name">
           {{ donut.name }}
-          <ng-container [ngSwitch]="donut.promo" ]>
-            <span class="donut-card-label">
-              <ng-template [ngSwitchCase]="'new'">NEW</ng-template>
-              <ng-template [ngSwitchCase]="'limited'">LIMITED</ng-template>
-              <ng-template ngSwitchDefault>Nothing Special</ng-template>
-            </span>
+          <ng-container [ngSwitch]="donut.promo">
+            <span *ngSwitchCase="'new'" class="donut-card-label">NEW</span>
+            <span *ngSwitchCase="'limited'" class="donut-card-label"
+              >LIMITED</span
+            >
           </ng-container>
         </p>
         <p class="donut-card-price">

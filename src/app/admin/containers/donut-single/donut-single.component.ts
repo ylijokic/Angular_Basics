@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Donut } from '../../models/donut.model';
 import { DonutService } from '../../services/donut.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -42,23 +42,32 @@ export class DonutSingleComponent implements OnInit {
   }
 
   public onCreate(donut: Donut): void {
-    this.donutService
-      .create(donut)
-      .subscribe((donut) =>
-        this.router.navigate(['admin', 'donuts', donut.id])
-      );
+    this.donutService.create(donut).subscribe({
+      next: (donut) => this.router.navigate(['admin', 'donuts']),
+      error: () => {
+        this.router.navigate(['admin']);
+        console.log('create Error!');
+      },
+    });
   }
 
   public onUpdate(donut: Donut): void {
     this.donutService.update(donut).subscribe({
       next: () => this.router.navigate(['admin']),
-      error: () => console.log('onUpdate Error!'),
+      error: () => {
+        this.router.navigate(['admin']);
+        console.log('onUpdate Error!');
+      },
     });
   }
 
   public onDelete(donut: Donut): void {
-    this.donutService
-      .delete(donut)
-      .subscribe(() => this.router.navigate(['admin']));
+    this.donutService.delete(donut).subscribe({
+      next: () => this.router.navigate(['admin']),
+      error: () => {
+        this.router.navigate(['admin']);
+        console.log('Delete Error!');
+      },
+    });
   }
 }
